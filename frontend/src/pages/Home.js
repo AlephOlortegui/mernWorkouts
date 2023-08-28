@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useWorkoutsContext from '../hooks/useWorkoutsContext'
 import Empty from '../comp/Empty'
 import WorkoutForm from '../comp/WorkoutForm'
 import WorkoutDetails from '../comp/WorkoutDetails'
+import Loader from '../comp/Loader'
 
 /* const Home = () => {
     const [workouts, setWorkouts] = useState(null)
@@ -36,6 +37,7 @@ import WorkoutDetails from '../comp/WorkoutDetails'
 
 const Home = () => { 
   const {dispatch, state: {workouts}} = useWorkoutsContext()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchWorkouts = async () => { 
@@ -47,20 +49,28 @@ const Home = () => {
               type:'SET_WORKOUTS',
               payload: json
           })
+          setIsLoading(false)
       }
      }
-  
-    fetchWorkouts()
+     
+     setTimeout(() => {
+      fetchWorkouts()
+     }, 6000);
+    //fetchWorkouts()
   }, [])
 
   return(
     <div className="home">
         <div className="workouts">
-            {workouts.length > 0 ? (
-              workouts.map(workout => (
-                <WorkoutDetails key={workout._id} workout={workout}/>
-              ))
-            ) : (<Empty />)}
+        {isLoading ? (
+            <Loader />
+          ) : workouts.length > 0 ? (
+            workouts.map(workout => (
+              <WorkoutDetails key={workout._id} workout={workout} />
+            ))
+          ) : (
+            <Empty />
+          )}
         </div>
         <WorkoutForm />
     </div>

@@ -121,3 +121,34 @@ input.error {
   margin-bottom: -10px;
 }
 
+.loader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.loader img{
+  max-width: 300px;
+  height: auto;
+}
+.loader img:nth-child(1){
+  opacity: 0;
+  animation: test1 2s infinite forwards;
+}
+.loader img:nth-child(2){
+  position: absolute;
+  z-index: -1;
+  transform: translate(15px, 30px);
+  animation: test2 2s infinite forwards;
+}
+
+@keyframes test1 {
+  60%{opacity: 0;}
+  100%{opacity: 1;}
+}
+@keyframes test2 {
+  60%{opacity: 1;}
+  100%{opacity: 0;}
+}
+
+
