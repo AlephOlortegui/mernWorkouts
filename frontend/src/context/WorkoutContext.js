@@ -1,7 +1,8 @@
 import { createContext, useReducer } from "react"
 
 const initialState = {
-  workouts: []
+  workouts: [],
+  workoutToEdit: null
 }
 
 export const WorkoutContext = createContext()
@@ -17,6 +18,32 @@ const WorkoutReducer = (state, action) => {
       return {
           ...state,
           workouts: [action.payload, ...state.workouts]
+      }
+    case 'GET_ONE_WORKOUT':
+      return {
+          ...state,
+          workoutToEdit: action.payload
+      }
+    case "CANCEL_EDIT":
+      return { 
+        ...state,
+        workoutToEdit: null
+      }
+    case "PATCH_WORKOUT":
+      return {
+        ...state,
+        workoutToEdit: null,
+        workouts: state.workouts.map(w => {
+          if(w._id === action.payload._id){
+              return {
+                  ...w,
+                  title:action.payload.title, 
+                  reps:action.payload.reps, 
+                  load:action.payload.load
+              }
+          }
+          return w
+        })
       }
     default:
       return state
