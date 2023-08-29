@@ -55,7 +55,7 @@ const Home = () => {
      
      setTimeout(() => {
       fetchWorkouts()
-     }, 6000);
+     }, 3500);
     //fetchWorkouts()
   }, [])
 
