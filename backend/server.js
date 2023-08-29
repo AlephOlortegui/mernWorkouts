@@ -1,5 +1,6 @@
 const express = require('express')
 const workoutRoutes = require('./routes/workoutRoutes')
+const userRoutes = require('./routes/userRoutes')
 const connectDB = require('./db/db')
 
 require('dotenv').config()
@@ -19,6 +20,7 @@ app.use((req,res,next) => {
 
 //app.use(myRoute, routesFile)
 app.use('/api/workouts', workoutRoutes)
+app.use('/api/user', userRoutes)
 /* when we fire a request to 'myRoute' 
-  then I want to use workoutRoutes
+  then I want to use xRoutes
 */
