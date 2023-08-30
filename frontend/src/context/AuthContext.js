@@ -19,6 +19,18 @@ const AuthReducer = (state,action) => {
 
 export const AuthProvider = ({children}) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState)
+
+  // See the Login.js for the reason of using useEffect Hook here
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'))
+    if(user) {
+      dispatch({
+          type: 'LOGIN',
+          payload: user
+      })
+    } 
+  }, [])
+
   console.log('Auth context state ', state)
   return (
     <AuthContext.Provider value={{...state, dispatch}}>
