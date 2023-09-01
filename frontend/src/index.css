@@ -63,6 +63,10 @@ header a {
   cursor: pointer;
   background: #f1f1f1;
   padding: 6px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
   border-radius: 50%;
   color: #333;
 }

@@ -2,6 +2,7 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import useWorkoutsContext from '../hooks/useWorkoutsContext'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { FaTrash, FaEdit  } from 'react-icons/fa';
 
 const WorkoutDetails = ({workout}) => {
   const {dispatch, state: {workoutToEdit}} = useWorkoutsContext()
@@ -40,8 +41,10 @@ const WorkoutDetails = ({workout}) => {
       <p><strong>Number of reps: </strong>{workout.reps}</p>
       <p>Original created {formatDistanceToNow(new Date(workout.createdAt), {addSuffix: true})}</p>
       {!workoutToEdit && 
-      <span className="material-symbols-outlined" onClick={handleClick}>delete</span> }
-      <span className="edit" onClick={oneWorkout}>Edit</span>
+      <span className="material-symbols-outlined" onClick={handleClick}>
+        <FaTrash />
+      </span> }
+      <span className="edit" onClick={oneWorkout}><FaEdit /></span>
     </div>
   )
 }
