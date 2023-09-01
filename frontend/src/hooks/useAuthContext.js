@@ -3,6 +3,7 @@ import { useContext } from 'react';
 
 export const useAuthContext = () => {
     const context = useContext(AuthContext)
+    //console.log(context) // //where context = {user: null, dispatch: ƒ}
     
     if (!context) {
         throw Error('useAuthContext must be used inside an AuthProvider')

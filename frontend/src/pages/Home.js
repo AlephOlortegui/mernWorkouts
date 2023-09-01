@@ -4,6 +4,7 @@ import Empty from '../comp/Empty'
 import WorkoutForm from '../comp/WorkoutForm'
 import WorkoutDetails from '../comp/WorkoutDetails'
 import Loader from '../comp/Loader'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 /* const Home = () => {
     const [workouts, setWorkouts] = useState(null)
@@ -37,11 +38,16 @@ import Loader from '../comp/Loader'
 
 const Home = () => { 
   const {dispatch, state: {workouts}} = useWorkoutsContext()
+  const {user} = useAuthContext()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchWorkouts = async () => { 
-      const res = await fetch('/api/workouts')
+      const res = await fetch('/api/workouts',{
+        headers: {
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
       const json = await res.json() //  = [{},{}...]
 
       if(res.ok){
@@ -53,11 +59,13 @@ const Home = () => {
       }
      }
      
-     setTimeout(() => {
-      fetchWorkouts()
-     }, 3500);
-    //fetchWorkouts()
-  }, [])
+     if(user){
+        setTimeout(() => {
+          fetchWorkouts()
+        }, 3500);
+        //fetchWorkouts()
+      }
+  }, [dispatch, user])
 
   return(
     <div className="home">
